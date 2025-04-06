@@ -43,7 +43,7 @@ const RegistrationForm = ({ onSubmit, navigateTo }) => {
     
     if (validateForm()) {
       onSubmit(formData);
-      navigate(navigateTo);
+      navigate(navigateTo, { state: { studentData: formData } });
     }
   };
 

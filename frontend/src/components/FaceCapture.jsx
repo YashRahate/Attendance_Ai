@@ -1,8 +1,12 @@
 // src/components/FaceCapture.jsx
-import { useState, useRef } from 'react';
+import { useState, useRef , useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-const FaceCapture = ({ studentData, navigateTo }) => {
+const FaceCapture = ({navigateTo}) => {
+
+  const location = useLocation(); // Add this
+  const studentData = location.state?.studentData; // Get data from router state
   const navigate = useNavigate();
   const [currentImage, setCurrentImage] = useState(0);
   const [images, setImages] = useState(Array(5).fill(null));
@@ -10,6 +14,13 @@ const FaceCapture = ({ studentData, navigateTo }) => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    if (!studentData) {
+      setError('Missing student information. Please go back and fill the registration form.');
+      // Optionally navigate back: navigate(-1);
+    }
+  }, [studentData, navigate]);
 
   const handleImageSelect = async (e) => {
     if (!e.target.files || !e.target.files[0]) return;
