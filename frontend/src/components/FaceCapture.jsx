@@ -1,7 +1,9 @@
 // src/components/FaceCapture.jsx
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const FaceCapture = ({ studentData, onComplete }) => {
+const FaceCapture = ({ studentData, navigateTo }) => {
+  const navigate = useNavigate();
   const [currentImage, setCurrentImage] = useState(0);
   const [images, setImages] = useState(Array(5).fill(null));
   const [loading, setLoading] = useState(false);
@@ -43,7 +45,7 @@ const FaceCapture = ({ studentData, onComplete }) => {
         // If this is the last image, wait a moment then proceed
         if (currentImage === 4) {
           setTimeout(() => {
-            onComplete();
+            navigate(navigateTo);
           }, 1500);
         } else {
           // Move to next image

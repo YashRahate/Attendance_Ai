@@ -1,7 +1,9 @@
 // src/components/RegistrationForm.jsx
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const RegistrationForm = ({ onSubmit }) => {
+const RegistrationForm = ({ onSubmit, navigateTo }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     rollNo: '',
@@ -41,6 +43,7 @@ const RegistrationForm = ({ onSubmit }) => {
     
     if (validateForm()) {
       onSubmit(formData);
+      navigate(navigateTo);
     }
   };
 

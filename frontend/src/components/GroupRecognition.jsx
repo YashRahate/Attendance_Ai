@@ -1,7 +1,9 @@
 // src/components/GroupRecognition.jsx
 import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const GroupRecognition = ({ onRecognitionComplete }) => {
+const GroupRecognition = ({ onRecognitionComplete, navigateTo }) => {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
@@ -36,6 +38,7 @@ const GroupRecognition = ({ onRecognitionComplete }) => {
       
       if (data.success) {
         onRecognitionComplete(data.recognized_students || []);
+        navigate(navigateTo);
       } else {
         setError(data.message || 'Recognition failed');
       }
